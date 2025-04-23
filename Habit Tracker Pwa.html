@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#317EFB"/>
+  <title>Habit Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 1rem;
+    }
+    .habit {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 0.5rem 1rem;
+      background: #317EFB;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Habit Tracker</h1>
+  <div id="habits"></div>
+  <input id="newHabit" placeholder="New habit" />
+  <button onclick="addHabit()">Add</button>
+
+  <script>
+    const habitsEl = document.getElementById('habits');
+    const habits = JSON.parse(localStorage.getItem('habits') || '[]');
+
+    function renderHabits() {
+      habitsEl.innerHTML = '';
+      habits.forEach((habit, index) => {
+        const el = document.createElement('div');
+        el.className = 'habit';
+        el.innerHTML = `
+          <strong>${habit.name}</strong><br>
+          <span>Streak: ${habit.streak}</span><br>
+          <button onclick="increment(${index})">+1</button>
+        `;
+        habitsEl.appendChild(el);
+      });
+    }
+
+    function addHabit() {
+      const name = document.getElementById('newHabit').value.trim();
+      if (!name) return;
+      habits.push({ name, streak: 0 });
+      saveHabits();
+      renderHabits();
+      document.getElementById('newHabit').value = '';
+    }
+
+    function increment(index) {
+      habits[index].streak++;
+      saveHabits();
+      renderHabits();
+    }
+
+    function saveHabits() {
+      localStorage.setItem('habits', JSON.stringify(habits));
+    }
+
+    renderHabits();
+  </script>
+</body>
+</html>
