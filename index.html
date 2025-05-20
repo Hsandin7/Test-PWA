@@ -28,6 +28,35 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
+    /* Navigation Button Styling */
+    .nav-buttons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .nav-buttons a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 40px;
+      background: transparent;
+      border: 2px solid #317EFB;
+      border-radius: 25px;
+      font-size: 16px;
+      color: #317EFB;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-buttons a:hover {
+      background: #317EFB;
+      color: white;
+      box-shadow: 0 0 10px #317EFB;
+    }
   </style>
 </head>
 <body>
@@ -35,6 +64,13 @@
   <div id="habits"></div>
   <input id="newHabit" placeholder="New habit" />
   <button onclick="addHabit()">Add</button>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <a href="home.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <script>
     const habitsEl = document.getElementById('habits');
